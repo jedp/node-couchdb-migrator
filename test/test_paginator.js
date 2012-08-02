@@ -1,44 +1,7 @@
 const Paginator = require('../lib/paginator'),
-      cradle = require('cradle'),
+      dbutils = require('./dbutils'),
       vows = require('vows'),
       assert = require('assert');
-
-function get_db() {
-  return new (cradle.Connection)('127.0.0.1', 5984).database('test_paginator');
-}
-
-function init_db(db, callback) {
-  db.save('_design/data', {
-    all: {
-      map: function(doc) {
-        if (doc.foo) {
-          emit(doc.foo, doc);
-        }
-      }
-    },
-  }, callback);
-}
-
-function get_pristine_db(callback) {
-  var db = get_db();
-  db.exists(function(err, exists) {
-    if (exists) {
-      db.destroy(function() {
-        db.create(function() {
-          init_db(db, function() {
-            callback(db);
-          });
-        });
-      });
-    } else {
-      db.create(function() {
-        init_db(db, function() {
-          callback(db);
-        });
-      });
-    }
-  });
-}
 
 vows.describe("Paginator")
 
@@ -46,7 +9,7 @@ vows.describe("Paginator")
   "We start with": {
     topic: function() {
       var cb = this.callback;
-      get_pristine_db(function(db) {
+      dbutils.get_pristine_db('test_paginator', function(db) {
         // empty query to get metadata
         db.get('', cb);
       });
@@ -63,7 +26,7 @@ vows.describe("Paginator")
   "42 records": {
     topic: function() {
       var cb = this.callback;
-      get_pristine_db(function(db) {
+      dbutils.get_pristine_db('test_paginator', function(db) {
         var documents = [];
 
         // create 42 documents
@@ -107,7 +70,7 @@ vows.describe("Paginator")
 .addBatch({
   "Remove the database": {
     topic: function() {
-      get_db().destroy(this.callback);
+      dbutils.get_db('test_paginator').destroy(this.callback);
     },
 
     "because we clean up after ourselves": function(err, removed) {
