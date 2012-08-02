@@ -1,0 +1,24 @@
+{
+    "name": "couch-migrator",
+    "version": "0.0.1",
+    "private": true,
+
+    "description": "Simple couchdb schema migrator",
+    "main": "lib/migrator.js",
+
+    "dependencies": {
+      "cradle": "0.6.3"
+    },
+
+    "devDependencies": {
+        "vows": "0.6.2"
+    },
+
+    "scripts": {
+        "test": "vows test/*.js --spec"
+    },
+
+    "engines": {
+        "node": ">= 0.6.17"
+    }
+}
