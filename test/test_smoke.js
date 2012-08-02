@@ -17,7 +17,7 @@ vows.describe('CouchDB Connectivity')
 
     "and attach": {
       topic: function(migrator) {
-        return new Paginator(migrator.db);
+        return new Paginator(migrator.db, 'data/all');
       },
 
       "a paginator to the database": function(paginator) {
