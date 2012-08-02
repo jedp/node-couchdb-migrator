@@ -58,9 +58,9 @@ vows.describe("Paginator")
         paginator.next();
       },
 
-      "with a paginator": function(err, rows) {
+      "with a paginator": function(err, count) {
         assert(err === null);
-        assert(rows === 42);
+        assert(count === 42);
       }
 
     }

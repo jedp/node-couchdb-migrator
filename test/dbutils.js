@@ -5,9 +5,7 @@ function init_db(db, callback) {
   db.save('_design/data', {
     all: {
       map: function(doc) {
-        if (doc.foo) {
-          emit(doc.foo, doc);
-        }
+        emit(doc._id, doc);
       }
     },
   }, callback);
