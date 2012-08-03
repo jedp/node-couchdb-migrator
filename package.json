@@ -7,7 +7,8 @@
     "main": "lib/migrator.js",
 
     "dependencies": {
-      "cradle": "0.6.3"
+      "cradle": "0.6.3",
+      "JSONSelect": "git://github.com/lloyd/JSONSelect.git#master"
     },
 
     "devDependencies": {

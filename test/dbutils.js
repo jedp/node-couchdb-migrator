@@ -12,7 +12,7 @@ function init_db(db, callback) {
 }
 
 var get_db = module.exports.get_db = function get_db(name) {
-  return new (cradle.Connection)('127.0.0.1', 5984).database('name');
+  return new (cradle.Connection)('127.0.0.1', 5984).database(name);
 };
 
 var get_pristine_db = module.exports.get_pristine_db = function get_pristine_db(name, callback) {
